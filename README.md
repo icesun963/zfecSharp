@@ -19,3 +19,19 @@ FEC 是利用数据进行传输冗余信息的方法，当传输中出现错误�
 只要接受端，收到任意N个数据，即可还原出原始数据。
 
 常用于增加影音的传输。
+
+示例
+========
+
+            var bytesx = new byte[20];
+            for (int i = 0; i < 10; i++)
+            {
+                bytesx[i] = (byte)(i + 1);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                bytesx[10 + i] = (byte)(i + 11);
+            }
+            var code = new fec(2, 3).encode(bytesx);
+            code.RemoveAt(0);
+            var bytes = new fec(2, 3).decode(code.ToArray());
